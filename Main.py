@@ -4,6 +4,7 @@
 
 import requests
 import time
+from ToSendEmail import sendEmail
 
 current_time = int(time.time())
 print("Current epoch time is: " + str(current_time))
@@ -49,7 +50,9 @@ for pair in allPairs:  #Data Collection: collect all pairs price into (ETH_BTC:{
     print(pair+" end")
 
 sortedWindowsGain={k: v for k, v in sorted(WindowsGain.items(), key=lambda item: item[1], reverse=True)}
-for item in sortedWindowsGain:
-    print(item+":"+str(sortedWindowsGain[item]))
+#for item in sortedWindowsGain:
+#    print(item+":"+str(sortedWindowsGain[item]))
+sendEmail(sortedWindowsGain)
+
 
 
