@@ -8,7 +8,7 @@ import time
 current_time = int(time.time())
 print("Current epoch time is: " + str(current_time))
 
-Scanning_window_length=48 #48=48hours
+Scanning_window_length=72 #48=48hours
 secsPerHour=3600
 interval=str(7200)
 startPeriod = str(current_time - (Scanning_window_length-1) * secsPerHour)
@@ -37,12 +37,19 @@ for pair in allPairs:  #Data Collection: collect all pairs price into (ETH_BTC:{
     historicalPrice[pair]=[];
     for i in reversed(range(len(chartdata))):
         historicalPrice[pair].append(chartdata[i]['close'])
-        print(str(chartdata[i]['date'])+':'+str(chartdata[i]['close']))
+        #print(str(chartdata[i]['date'])+':'+str(chartdata[i]['close']))
     #Generate Accumulate%
     gain=0
     for histPrice in historicalPrice[pair]:
+        if(histPrice==0):
+            continue;
         gain +=(historicalPrice[pair][0]-histPrice)/histPrice
     WindowsGain[pair] = gain
 
     print(pair+" end")
+
+sortedWindowsGain={k: v for k, v in sorted(WindowsGain.items(), key=lambda item: item[1], reverse=True)}
+for item in sortedWindowsGain:
+    print(item+":"+str(sortedWindowsGain[item]))
+
 
