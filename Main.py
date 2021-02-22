@@ -6,8 +6,8 @@ from ScanAndGenerateReport import ScanAndReport
 import schedule
 import time
 
-#schedule.every(1).minutes.do(ScanAndReport)
-schedule.every(6).hour.do(ScanAndReport)
+ScanAndReport()
+schedule.every(6).hours.do(ScanAndReport)
 
 while True:
     schedule.run_pending()
